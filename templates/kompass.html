@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Buddy - Nagare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='kompass.css') }}">
+
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="left-section">
+                <h1>Build Buddy</h1>
+                <div class="nav-links">
+                    <button class="nav-btn" onclick="window.location.href='/'">Home</button>
+                    <button class="nav-btn" data-tooltip="A sophisticated video-based visual inspection software for real-time quality control and monitoring"  onclick="window.location.href='/nagare'">Nagare</button>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        </nav>
+
+        <div class="container">
+            <div class="form-sidebar">
+                <div class="form-container">
+                    <form id="dataForm">
+                        <div class="section">
+                            <h2>Version</h2>
+                            <input type="text" id="field1" placeholder="Enter semver version" name="field1" class="large-input" required />
+                        </div>
+
+                        <div class="section">
+                            <h2>Customer</h2>
+                            <input type="text" id="field2" placeholder="Enter customer name" name="field2" class="large-input" required />
+                        </div>
+
+                        <div class="section">
+                            <label for="specificCheckbox">
+                                <input type="checkbox" id="specificCheckbox" />
+                                Specific Build
+                            </label>
+                            <div id="specificField" class="optional-field">
+                                <input type="text" id="field3" placeholder="Enter specific patch"name="field3" class="small-input" />
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <label for="scalingCheckbox">
+                                <input type="checkbox" id="scalingCheckbox" />
+                                Scaling Customer
+                            </label>
+                            <div id="scalingField" class="optional-field">
+                                <input type="text" id="field4" placeholder="Enter sclaling name" name="field4" class="small-input" />
+                            </div>
+                        </div>
+                        <button type="button" class="start-button" onclick="start_kompass_build()">Start Building</button>
+                        <button type="button" class="stop-button" onclick="stop_kompass_build()">Stop Building</button>
+
+                        <div class="status-indicator-container">
+                            <h2><span id="status-label">Ready to build</span></h2>
+                            <div id="status-indicator" class="status-indicator idle"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="terminal-container" id="terminalOutput">
+                <p class="output-line">Waiting for Build to start...</p>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="buildProgress"></div>
+                </div>
+                <div class="progress-text">Build Progress: <span id="progressPercent">0%</span></div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='kompass.js') }}"></script>
+
+
+</body>
+</html>

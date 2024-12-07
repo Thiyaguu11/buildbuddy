@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Buddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="left-section">
+                <h1>Build Buddy</h1>
+                <div class="nav-links">
+                    <button class="nav-btn" data-tooltip="An AI-powered image-based visual inspection software that detects defects and anomalies with high precision" onclick="window.location.href='/kompass'">Kompass</button>
+                    <button class="nav-btn" data-tooltip="A sophisticated video-based visual inspection software for real-time quality control and monitoring" onclick="window.location.href='/nagare'">Nagare</button>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        </nav>
+    </div>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
