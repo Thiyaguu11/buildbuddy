@@ -4,15 +4,8 @@ const THEMES = {
 };
 
 function loadTheme() {
-    const savedTheme = localStorage.getItem('theme') || THEMES.LIGHT;
+    const savedTheme = localStorage.getItem('theme') || THEMES.DARK;
     document.documentElement.setAttribute('data-theme', savedTheme);
-}
-
-function updateProgress(percent) {
-    const progress = document.getElementById('buildProgress');
-    const percentText = document.getElementById('progressPercent');
-    progress.style.width = percent + '%';
-    percentText.textContent = percent + '%';
 }
 
 function toggleTheme() {
@@ -23,26 +16,16 @@ function toggleTheme() {
     localStorage.setItem('theme', newTheme);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    loadTheme();
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-});
-
-document.getElementById('specificCheckbox').addEventListener('change', function() {
-    document.getElementById('specificField').style.display = this.checked ? 'block' : 'none';
-});
-
-document.getElementById('scalingCheckbox').addEventListener('change', function() {
-    document.getElementById('scalingField').style.display = this.checked ? 'block' : 'none';
-});
-
-window.addEventListener('load', function() {
-    loadTheme();
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-    document.getElementById('specificField').style.display = document.getElementById('specificCheckbox').checked ? 'block' : 'none';
-    document.getElementById('scalingField').style.display = document.getElementById('scalingCheckbox').checked ? 'block' : 'none';
-    startStatusPolling();
-});
+function updateProgress(percent) {
+    if (typeof percent !== 'number' || isNaN(percent)) {
+        console.error('Invalid progress value:', percent);
+        return;
+    }
+    const progress = document.getElementById('buildProgress');
+    const percentText = document.getElementById('progressPercent');
+    progress.style.width = Math.min(100, Math.max(0, percent)) + '%';
+    percentText.textContent = Math.round(percent) + '%';
+}
 
 function start_kompass_build() {
     const field1 = document.getElementById("field1").value.trim();
@@ -53,17 +36,17 @@ function start_kompass_build() {
     const scalingChecked = document.getElementById("scalingCheckbox").checked;
 
     if (!field1 || !field2) {
-        alert("Version and Customer are required.");
+        showPopup("Version and Customer are required.");
         return;
     }
 
     if (specificChecked && !field3) {
-        alert("Specific build field is required when checkbox is checked.");
+        showPopup("Specific build is empty");
         return;
     }
 
     if (scalingChecked && !field4) {
-        alert("Scaling customer field is required when checkbox is checked.");
+        showPopup("Scaling customer is empty");
         return;
     }
 
@@ -120,7 +103,7 @@ function stop_kompass_build() {
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message || data.error);
+        showPopup(data.message);
         const statusLabel = document.getElementById("status-label");
         const statusIndicator = document.getElementById("status-indicator");
         statusLabel.textContent = "Ready to build";
@@ -128,7 +111,7 @@ function stop_kompass_build() {
         statusIndicator.classList.add("idle");
     })
     .catch((error) => {
-        alert('Error: ' + error);
+        showPopup('Error: ' + error);
     });
 }
 
@@ -150,12 +133,14 @@ function startStatusPolling() {
                     terminalOutput.innerHTML = data.terminal;
                     terminalOutput.scrollTop = terminalOutput.scrollHeight;
                 }
+                updateProgress(data.progress);
             } else {
                 statusLabel.textContent = "Ready to build";
             }
             statusIndicator.className = `status-indicator ${data.status}`;
         })
         .catch((error) => {
+            showPopup(data.message);
             console.error('Error fetching status:', error);
             const statusIndicator = document.getElementById("status-indicator");
             statusIndicator.className = 'status-indicator error';
@@ -163,8 +148,38 @@ function startStatusPolling() {
     }, 1000);
 }
 
+function showPopup(message) {
+    const popup = document.createElement('div');
+    popup.className = 'popup';
+    popup.textContent = message;
+    document.body.appendChild(popup);
+    
+    setTimeout(() => popup.remove(), 3000);
+}
+
 window.addEventListener('beforeunload', function() {
     if (statusPollingInterval) {
         clearInterval(statusPollingInterval);
     }
+});
+
+window.addEventListener('load', function() {
+    loadTheme();
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('specificField').style.display = document.getElementById('specificCheckbox').checked ? 'block' : 'none';
+    document.getElementById('scalingField').style.display = document.getElementById('scalingCheckbox').checked ? 'block' : 'none';
+    startStatusPolling();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+});
+
+document.getElementById('specificCheckbox').addEventListener('change', function() {
+    document.getElementById('specificField').style.display = this.checked ? 'block' : 'none';
+});
+
+document.getElementById('scalingCheckbox').addEventListener('change', function() {
+    document.getElementById('scalingField').style.display = this.checked ? 'block' : 'none';
 });

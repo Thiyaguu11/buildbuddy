@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Build Buddy - Nagare</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='nagare.css') }}">
+
 </head>
 <body>
     <div class="wrapper">
@@ -13,7 +14,8 @@
                 <h1>Build Buddy</h1>
                 <div class="nav-links">
                     <button class="nav-btn" onclick="window.location.href='/'">Home</button>
-                    <button class="nav-btn" data-tooltip="An AI-powered image-based visual inspection software that detects defects and anomalies with high precision" onclick="window.location.href='/kompass'">Kompass</button>
+                    <button class="nav-btn" data-tooltip="Move to kompass dashboard"  onclick="window.location.href='/kompass'">Kompass</button>
+                    <button class="nav-btn active" data-tooltip="Already in nagare dashboard"  onclick="window.location.href='/nagare'">Nagare</button>
                 </div>
             </div>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
@@ -39,7 +41,7 @@
                                 Specific Build
                             </label>
                             <div id="specificField" class="optional-field">
-                                <input type="text" id="field3" placeholder="Enter specific patch" name="field3" class="small-input" />
+                                <input type="text" id="field3" placeholder="Enter patch type"name="field3" class="small-input" />
                             </div>
                         </div>
 
@@ -66,7 +68,11 @@
                 <div class="progress-text">Build Progress: <span id="progressPercent">0%</span></div>
             </div>
         </div>
+        
     </div>
+
     <script src="{{ url_for('static', filename='nagare.js') }}"></script>
+
+
 </body>
 </html>

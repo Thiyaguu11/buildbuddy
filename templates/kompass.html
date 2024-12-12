@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Buddy - Nagare</title>
+    <title>Build Buddy - Kompass</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='kompass.css') }}">
 
 </head>
@@ -14,7 +14,8 @@
                 <h1>Build Buddy</h1>
                 <div class="nav-links">
                     <button class="nav-btn" onclick="window.location.href='/'">Home</button>
-                    <button class="nav-btn" data-tooltip="A sophisticated video-based visual inspection software for real-time quality control and monitoring"  onclick="window.location.href='/nagare'">Nagare</button>
+                    <button class="nav-btn active" data-tooltip="Already in kompass dashboard"  onclick="window.location.href='/kompass'">Kompass</button>
+                    <button class="nav-btn" data-tooltip="Move to nagare dashboard"  onclick="window.location.href='/nagare'">Nagare</button>
                 </div>
             </div>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
@@ -40,7 +41,7 @@
                                 Specific Build
                             </label>
                             <div id="specificField" class="optional-field">
-                                <input type="text" id="field3" placeholder="Enter specific patch"name="field3" class="small-input" />
+                                <input type="text" id="field3" placeholder="Enter patch type"name="field3" class="small-input" />
                             </div>
                         </div>
 
@@ -50,7 +51,7 @@
                                 Scaling Customer
                             </label>
                             <div id="scalingField" class="optional-field">
-                                <input type="text" id="field4" placeholder="Enter sclaling name" name="field4" class="small-input" />
+                                <input type="text" id="field4" placeholder="Scaling customer name" name="field4" class="small-input" />
                             </div>
                         </div>
                         <button type="button" class="start-button" onclick="start_kompass_build()">Start Building</button>

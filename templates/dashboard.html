@@ -12,12 +12,48 @@
             <div class="left-section">
                 <h1>Build Buddy</h1>
                 <div class="nav-links">
-                    <button class="nav-btn" data-tooltip="An AI-powered image-based visual inspection software that detects defects and anomalies with high precision" onclick="window.location.href='/kompass'">Kompass</button>
-                    <button class="nav-btn" data-tooltip="A sophisticated video-based visual inspection software for real-time quality control and monitoring" onclick="window.location.href='/nagare'">Nagare</button>
+                    <button class="nav-btn" data-tooltip="Move to kompass dashboard" onclick="window.location.href='/kompass'">Kompass</button>
+                    <button class="nav-btn" data-tooltip="Move to nagare dashboard" onclick="window.location.href='/nagare'">Nagare</button>
+                    <a href="https://www.notion.so/jidoka-tech/Kompass-Dev-and-build-5929537a543a4a4f842a7c8de64eb43b" target="_blank" class="nav-btn">Learn kompass at notion</a>
+                    <a href="https://www.notion.so/jidoka-tech/Nagare-Dev-and-build-754ad4479bfb48bcbe9849b0f6c9ade3" target="_blank" class="nav-btn">Learn nagare at notion</a>
                 </div>
             </div>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
         </nav>
+        <div class="hero-section">
+            <h2>Welcome to Build Buddy</h2>
+            <p>An automation tool designed to streamline the building process for Kompass and Nagare, reducing time consumption and optimizing workflows.</p>
+        </div>
+
+        <div class="metrics-section">
+            <div class="metrics-grid">
+                <div class="metric-card stagger-animation" style="--order: 3">
+                    <h3 id="kompassBuilds">0</h3>
+                    <p>Total Kompass Builds</p>
+                </div>
+                <div class="metric-card stagger-animation" style="--order: 4">
+                    <h3 id="successfulkompassBuilds">0</h3>
+                    <p>Successful Kompass Builds</p>
+                </div>
+                <div class="metric-card stagger-animation" style="--order: 5">
+                    <h3 id="failedkompassBuilds">0</h3>
+                    <p>Failed Kompass Builds</p>
+                </div>
+                <div class="metric-card stagger-animation" style="--order: 6">
+                    <h3 id="nagareBuilds">0</h3>
+                    <p>Total Nagare Builds</p>
+                </div>
+                <div class="metric-card stagger-animation" style="--order: 7">
+                    <h3 id="successfulnagareBuilds">0</h3>
+                    <p>Successful Nagare Builds</p>
+                </div>
+                <div class="metric-card stagger-animation" style="--order: 8">
+                    <h3 id="failednagareBuilds">0</h3>
+                    <p>Failed Nagare Builds</p>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 </body>
